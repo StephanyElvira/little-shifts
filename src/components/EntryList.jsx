@@ -1,14 +1,18 @@
 import {
   Text,
   HStack,
+  VStack,
   Badge,
+  Flex,
   Button,
   Card,
   CardBody,
   SimpleGrid,
+  Tooltip,
 } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getMoodLabel, getMoodColor } from "@/data/Moods";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const MotionCard = motion.create(Card);
 
@@ -64,7 +68,6 @@ export default function EntryList({ entries, onDelete }) {
                   <Text
                     color="gray.700"
                     bg={getMoodColor(entry.mood)}
-                    width="full"
                     px={2}
                     py={0}
                     fontSize="sm"
@@ -79,16 +82,21 @@ export default function EntryList({ entries, onDelete }) {
                   {entry.date}
                 </Text>
               </HStack>
-              <HStack justify="space-between">
+              <VStack align="stretch" spacing={2}>
                 <Text>{entry.text}</Text>
-                <Button
-                  size="xs"
-                  variant="ghost"
-                  onClick={() => onDelete(entry.id)}
-                >
-                  Delete
-                </Button>
-              </HStack>
+                <Flex justify="flex-end">
+                  <Tooltip label="Delete entry" hasArrow bg="brand.400">
+                    <Button
+                      size="xs"
+                      variant="ghost"
+                      colorScheme="brand"
+                      onClick={() => onDelete(entry.id)}
+                    >
+                      <TiDeleteOutline size={18} />
+                    </Button>
+                  </Tooltip>
+                </Flex>
+              </VStack>
             </CardBody>
           </MotionCard>
         ))}

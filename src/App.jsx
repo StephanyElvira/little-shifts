@@ -16,15 +16,8 @@ import EntryForm from "./components/EntryForm";
 import EntryList from "./components/EntryList";
 import MoodOverview from "./components/MoodOverview";
 import { motion } from "framer-motion";
+import { moods } from "./data/Moods";
 
-const moods = [
-  { emoji: "😊", label: "Happy" },
-  { emoji: "😔", label: "Sad" },
-  { emoji: "😠", label: "Angry" },
-  { emoji: "😴", label: "Tired" },
-  { emoji: "❤️", label: "Loved" },
-  { emoji: "😶", label: "Neutral" },
-];
 const MotionBox = motion.create(Box);
 
 function App() {
