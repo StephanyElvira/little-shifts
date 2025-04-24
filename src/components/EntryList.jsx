@@ -1,13 +1,14 @@
 import {
   Text,
-  VStack,
   HStack,
   Badge,
   Button,
   Card,
   CardBody,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getMoodLabel, getMoodColor } from "@/data/Moods";
 
 const MotionCard = motion.create(Card);
 
@@ -40,7 +41,7 @@ export default function EntryList({ entries, onDelete }) {
   }
 
   return (
-    <VStack align="stretch" mt={8} spacing={4}>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={8}>
       <AnimatePresence>
         {entries.map((entry) => (
           <MotionCard
@@ -58,9 +59,22 @@ export default function EntryList({ entries, onDelete }) {
           >
             <CardBody>
               <HStack justify="space-between" mb={2}>
-                <Badge fontSize="lg" variant="ghost">
-                  {entry.mood}
-                </Badge>
+                <HStack spacing={2}>
+                  <Text>{entry.mood}</Text>
+                  <Text
+                    color="gray.700"
+                    bg={getMoodColor(entry.mood)}
+                    width="full"
+                    px={2}
+                    py={0}
+                    fontSize="sm"
+                    borderRadius="md"
+                    fontWeight="normal"
+                    textTransform="none"
+                  >
+                    {getMoodLabel(entry.mood)}
+                  </Text>
+                </HStack>
                 <Text fontSize="xs" color="gray.500">
                   {entry.date}
                 </Text>
@@ -79,6 +93,6 @@ export default function EntryList({ entries, onDelete }) {
           </MotionCard>
         ))}
       </AnimatePresence>
-    </VStack>
+    </SimpleGrid>
   );
 }
