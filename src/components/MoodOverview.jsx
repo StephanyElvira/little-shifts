@@ -1,19 +1,26 @@
 import { Box, Text, Badge, SimpleGrid } from "@chakra-ui/react";
-import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import { getStreak } from "../utils/getStreak";
 import DailyQuote from "./DailyQuote";
+import { countMoodsWithLabel } from "@/data/Moods";
 
-// helper: count moods
-function countMoods(entries) {
-  const moodCount = {};
-  entries.forEach((entry) => {
-    moodCount[entry.mood] = (moodCount[entry.mood] || 0) + 1;
-  });
-  return Object.entries(moodCount).map(([mood, count]) => ({
-    name: mood,
-    value: count,
-  }));
-}
+// function countMoods(entries) {
+//   const moodCount = {};
+//   entries.forEach((entry) => {
+//     moodCount[entry.mood] = (moodCount[entry.mood] || 0) + 1;
+//   });
+//   return Object.entries(moodCount).map(([mood, count]) => ({
+//     name: mood,
+//     value: count,
+//   }));
+// }
 
 const COLORS = {
   "😊": "#FFF4B8",
@@ -25,7 +32,7 @@ const COLORS = {
 };
 
 export default function MoodOverview({ entries }) {
-  const data = countMoods(entries);
+  const data = countMoodsWithLabel(entries);
   const streak = getStreak(entries);
 
   return (
@@ -51,17 +58,25 @@ export default function MoodOverview({ entries }) {
               cx="50%"
               cy="50%"
               outerRadius={100}
-              stroke="#fff" // 👈 border color
-              strokeWidth={2}
               dataKey="value"
               nameKey="name"
-              label={({ name }) => name}
+              labelLine={false}
+              label={false}
+              stroke="#fff"
+              strokeWidth={1}
             >
               {data.map((entry) => (
                 <Cell key={entry.name} fill={COLORS[entry.name] || "#EEE"} />
               ))}
             </Pie>
             <Tooltip />
+            <Legend
+              verticalAlign="bottom"
+              align="center"
+              iconType="circle"
+              wrapperStyle={{ fontSize: "14px" }}
+              formatter={(value, entry) => entry.payload.label}
+            />
           </PieChart>
         </ResponsiveContainer>
       </Box>
@@ -77,7 +92,13 @@ export default function MoodOverview({ entries }) {
         borderRadius="xl"
         boxShadow="md"
       >
-        <Text mb={2} fontSize="md" fontWeight="semibold" textAlign="center">
+        <Text
+          mb={2}
+          fontSize="md"
+          fontWeight="semibold"
+          textAlign="center"
+          display={streak > 2 ? "block" : "none"}
+        >
           🔥 Daily Streak
         </Text>
         <Badge
@@ -86,6 +107,7 @@ export default function MoodOverview({ entries }) {
           py={2}
           borderRadius="lg"
           colorScheme="orange"
+          display={streak > 2 ? "inline-block" : "none"}
         >
           {streak} {streak === 1 ? "day" : "days"}
         </Badge>
