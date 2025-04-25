@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getMoodLabel, getMoodColor } from "@/data/Moods";
+import { getMoodLabel, getMoodColor } from "@/utils/Moods";
 import { TiDeleteOutline } from "react-icons/ti";
 
 const MotionCard = motion.create(Card);
@@ -60,8 +60,16 @@ export default function EntryList({ entries, onDelete }) {
             border="1px solid"
             borderColor="gray.100"
             overflow="hidden"
+            h="100%"
+            display="flex"
+            flexDirection="column"
           >
-            <CardBody>
+            <CardBody
+              as={Flex}
+              direction="column"
+              justify="space-between"
+              h="100%"
+            >
               <HStack justify="space-between" mb={2}>
                 <HStack spacing={2}>
                   <Text>{entry.mood}</Text>
@@ -82,9 +90,14 @@ export default function EntryList({ entries, onDelete }) {
                   {entry.date}
                 </Text>
               </HStack>
-              <VStack align="stretch" spacing={2}>
-                <Text>{entry.text}</Text>
-                <Flex justify="flex-end">
+
+              <Flex direction="column" justify="space-between" flex="1">
+                <Text>
+                  {entry.text.length > 80
+                    ? entry.text.slice(0, 80) + "…"
+                    : entry.text}
+                </Text>
+                <Flex justify="flex-end" mt="auto">
                   <Tooltip label="Delete entry" hasArrow bg="brand.400">
                     <Button
                       size="xs"
@@ -96,7 +109,7 @@ export default function EntryList({ entries, onDelete }) {
                     </Button>
                   </Tooltip>
                 </Flex>
-              </VStack>
+              </Flex>
             </CardBody>
           </MotionCard>
         ))}

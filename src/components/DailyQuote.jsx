@@ -13,14 +13,33 @@ export default function DailyQuote() {
   return (
     <Box
       p={2}
-      bg="brand.100"
-      border="1px solid"
-      borderColor="brand.200"
-      borderRadius="lg"
+      bg="brand.50"
+      opacity={0.8}
+      borderRadius="full"
       textAlign="center"
-      my={2}
+      my={0}
+      position="relative"
     >
-      <Text fontStyle="italic" color="black" fontSize="sm">
+      <Text
+        position="absolute"
+        top="0"
+        left="4"
+        fontSize="3xl"
+        color="brand.600"
+        zIndex={0}
+        lineHeight="1"
+        transform="translate(-10%, -20%)"
+      >
+        ❝
+      </Text>
+
+      <Text
+        fontStyle="italic"
+        fontSize="sm"
+        color="gray.900"
+        position="relative"
+        zIndex={1}
+      >
         {quote}
       </Text>
     </Box>

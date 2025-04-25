@@ -34,19 +34,19 @@ export default function EntryForm({ moods, onAddEntry }) {
           <Button
             key={m.emoji}
             onClick={() => setMood(m.emoji)}
-            variant="unstyled"
-            bg={m.emoji === mood ? "brand.100" : "white"}
+            bg={m.emoji === mood ? "brand.500" : "white"}
             color="gray.700"
+            variant="unstyled"
             px={2}
             py={2}
             borderRadius="full"
             boxShadow={m.emoji === mood ? "md" : "sm"}
             border={m.emoji === mood ? "1px solid" : "none"}
-            borderColor={m.emoji === mood ? "brand.300" : "gray.200"}
+            borderColor={m.emoji === mood ? "brand.600" : "gray.200"}
             transform={m.emoji === mood ? "translateY(-2px)" : "none"}
             transition="all 0.2s ease"
             _hover={{
-              bg: m.emoji === mood ? "brand.200" : "gray.50",
+              bg: m.emoji === mood ? "white" : "gray.50",
               cursor: "pointer",
             }}
           >
@@ -61,8 +61,14 @@ export default function EntryForm({ moods, onAddEntry }) {
         onChange={(e) => setEntry(e.target.value)}
       />
 
-      <Button onClick={handleSubmit} size="sm" isDisabled={!mood || !entry}>
-        Add Shift
+      <Button
+        onClick={handleSubmit}
+        size="sm"
+        colorScheme="brand"
+        variant="solid"
+        isDisabled={!mood || !entry}
+      >
+        Add your Little Shift
       </Button>
     </Box>
   );

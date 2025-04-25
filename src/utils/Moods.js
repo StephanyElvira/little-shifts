@@ -15,7 +15,7 @@ export function getMoodColor(emoji) {
   return moods.find((m) => m.emoji === emoji)?.color || "#ccc";
 }
 
-export function countMoodsWithLabel(entries) {
+export function countMoods(entries) {
   const moodCount = {};
   entries.forEach((entry) => {
     moodCount[entry.mood] = (moodCount[entry.mood] || 0) + 1;

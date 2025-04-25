@@ -16,7 +16,7 @@ import EntryForm from "./components/EntryForm";
 import EntryList from "./components/EntryList";
 import MoodOverview from "./components/MoodOverview";
 import { motion } from "framer-motion";
-import { moods } from "./data/Moods";
+import { moods } from "./utils/Moods";
 
 const MotionBox = motion.create(Box);
 

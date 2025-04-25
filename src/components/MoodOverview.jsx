@@ -1,4 +1,4 @@
-import { Box, Text, Badge, SimpleGrid } from "@chakra-ui/react";
+import { Box, Text, Badge, SimpleGrid, Tag } from "@chakra-ui/react";
 import {
   PieChart,
   Pie,
@@ -9,7 +9,11 @@ import {
 } from "recharts";
 import { getStreak } from "../utils/getStreak";
 import DailyQuote from "./DailyQuote";
-import { countMoodsWithLabel } from "@/data/Moods";
+import { countMoods, getMoodColor, getMoodLabel } from "@/utils/Moods";
+
+{
+  /*not sure yet where to use*/
+}
 
 // function countMoods(entries) {
 //   const moodCount = {};
@@ -22,21 +26,25 @@ import { countMoodsWithLabel } from "@/data/Moods";
 //   }));
 // }
 
-const COLORS = {
-  "😊": "#FFF4B8",
-  "😔": "#B6D0E2",
-  "😠": "#F8B9B9",
-  "😴": "#DCCEF2",
-  "❤️": "#FFD1DC",
-  "😶": "#DDE8D3",
-};
+// const COLORS = {
+//   "😊": "#FFF4B8",
+//   "😔": "#B6D0E2",
+//   "😠": "#F8B9B9",
+//   "😴": "#DCCEF2",
+//   "❤️": "#FFD1DC",
+//   "😶": "#DDE8D3",
+// };
 
 export default function MoodOverview({ entries }) {
-  const data = countMoodsWithLabel(entries);
+  const data = countMoods(entries);
   const streak = getStreak(entries);
+  const mostUsedMood = data.reduce(
+    (prev, current) => (prev.value > current.value ? prev : current),
+    { name: "", value: 0 }
+  );
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mt={8}>
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={2}>
       {/* Pie Chart */}
       <Box
         display="flex"
@@ -44,14 +52,27 @@ export default function MoodOverview({ entries }) {
         flexDirection="column"
         gap={4}
         p={4}
-        bgColor="white"
+        bgColor="#fff"
         borderRadius="xl"
         boxShadow="md"
       >
-        <Text mb={2} fontSize="md" fontWeight="semibold" textAlign="center">
-          Mood Breakdown
+        <Text fontSize="2xl" textAlign="center" fontFamily="accent">
+          Mood Overview
         </Text>
-        <ResponsiveContainer width="100%" height={300}>
+        <Text fontSize="xs" textAlign="center">
+          You have been feeling{" "}
+          <Text
+            as="span"
+            bg={getMoodColor(mostUsedMood.name)}
+            px={2}
+            py={1}
+            borderRadius="full"
+          >
+            {mostUsedMood.name} {getMoodLabel(mostUsedMood.name)}
+          </Text>{" "}
+          the most.
+        </Text>
+        <ResponsiveContainer width="100%" height={200}>
           <PieChart>
             <Pie
               data={data}
@@ -66,16 +87,41 @@ export default function MoodOverview({ entries }) {
               strokeWidth={1}
             >
               {data.map((entry) => (
-                <Cell key={entry.name} fill={COLORS[entry.name] || "#EEE"} />
+                <Cell key={entry.name} fill={getMoodColor(entry.name)} />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#ffffff",
+                border: "none",
+                borderRadius: "100%",
+                boxShadow: "0 2px 6px rgba(0, 0, 0, 0.05)",
+                padding: "6px 10px",
+                fontSize: "13px",
+              }}
+              itemStyle={{
+                color: "#2D3748",
+                fontWeight: 400,
+              }}
+            />
             <Legend
-              verticalAlign="bottom"
-              align="center"
+              layout="vertical"
+              verticalAlign="middle"
+              align="right"
               iconType="circle"
-              wrapperStyle={{ fontSize: "14px" }}
-              formatter={(value, entry) => entry.payload.label}
+              wrapperStyle={{
+                backgroundColor: "#F9F9F9",
+                color: "#2D3748",
+                padding: "8px 12px",
+                borderRadius: "8px",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+                fontSize: "10px",
+              }}
+              formatter={(value, entry) => (
+                <span style={{ color: "#2D3748", fontWeight: 500 }}>
+                  {entry.payload.label}
+                </span>
+              )}
             />
           </PieChart>
         </ResponsiveContainer>
@@ -92,25 +138,20 @@ export default function MoodOverview({ entries }) {
         borderRadius="xl"
         boxShadow="md"
       >
-        <Text
-          mb={2}
-          fontSize="md"
-          fontWeight="semibold"
-          textAlign="center"
-          display={streak > 2 ? "block" : "none"}
-        >
-          🔥 Daily Streak
+        <Text fontSize="2xl" textAlign="center" fontFamily="accent">
+          Achievements
         </Text>
         <Badge
           fontSize="sm"
           px={2}
           py={2}
-          borderRadius="lg"
-          colorScheme="orange"
-          display={streak > 2 ? "inline-block" : "none"}
+          borderRadius="full"
+          colorScheme="green"
+          display={streak > 1 ? "inline-block" : "none"}
         >
-          {streak} {streak === 1 ? "day" : "days"}
+          {streak} {streak === 1 ? "day streak" : "days streak"}
         </Badge>
+
         <DailyQuote />
       </Box>
     </SimpleGrid>
