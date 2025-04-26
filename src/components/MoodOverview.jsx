@@ -57,9 +57,7 @@ export default function MoodOverview({ entries }) {
         borderRadius="xl"
         boxShadow="md"
       >
-        <Text fontSize="2xl" textAlign="center" fontFamily="accent">
-          Mood Overview
-        </Text>
+        <Text fontSize="xl">Mood Overview</Text>
         <Text fontSize="xs" textAlign="center">
           You have been feeling{" "}
           <Text
@@ -73,17 +71,16 @@ export default function MoodOverview({ entries }) {
           </Text>{" "}
           the most.
         </Text>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={180}>
           <PieChart>
             <Pie
               data={data}
               cx="50%"
               cy="50%"
-              outerRadius={100}
+              outerRadius={80}
               dataKey="value"
               nameKey="name"
               labelLine={false}
-              label={false}
               stroke="#fff"
               strokeWidth={1}
             >
@@ -140,16 +137,6 @@ export default function MoodOverview({ entries }) {
         boxShadow="md"
       >
         <Achievements entries={entries} streak={streak} />
-        <Badge
-          fontSize="sm"
-          px={2}
-          py={2}
-          borderRadius="full"
-          colorScheme="green"
-          display={streak > 1 ? "inline-block" : "none"}
-        >
-          {streak} {streak === 1 ? "day streak" : "days streak"}
-        </Badge>
 
         <DailyQuote />
       </Box>

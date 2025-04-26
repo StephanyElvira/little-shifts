@@ -13,7 +13,7 @@ import { InfoOutlineIcon } from "@chakra-ui/icons";
 export default function Achievements({ entries, streak }) {
   return (
     <Box pb={2}>
-      <Text fontSize="2xl" textAlign="center" fontFamily="accent">
+      <Text as="heading" fontSize="xl">
         Achievements
       </Text>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2} mt={2}>
@@ -28,13 +28,14 @@ export default function Achievements({ entries, streak }) {
               boxShadow="md"
             >
               <HStack justify="space-between">
-                <Text fontSize="3xl" mt={1}>
+                <Text fontSize="2xl" mt={1}>
                   {a.icon}
                 </Text>
 
                 <HStack spacing={1}>
                   <Text
                     fontWeight={isUnlocked ? "semibold" : "normal"}
+                    fontStyle={isUnlocked ? "normal" : "italic"}
                     fontSize="xs"
                     color="gray.800"
                   >

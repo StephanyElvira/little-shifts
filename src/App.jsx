@@ -104,7 +104,7 @@ function App() {
         >
           <HStack spacing={2}>
             <Select
-              placeholder="Mood"
+              placeholder="Filter by Mood"
               size="xs"
               value={selectedMood}
               variant="flushed"
