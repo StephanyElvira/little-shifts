@@ -23,9 +23,9 @@ export default function DailyQuote() {
       <Text
         position="absolute"
         top="0"
-        left="4"
+        left="2"
         fontSize="3xl"
-        color="brand.600"
+        color="brand.400"
         zIndex={0}
         lineHeight="1"
         transform="translate(-10%, -20%)"
@@ -35,7 +35,7 @@ export default function DailyQuote() {
 
       <Text
         fontStyle="italic"
-        fontSize="sm"
+        fontSize="xs"
         color="gray.900"
         position="relative"
         zIndex={1}

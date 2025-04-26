@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { getStreak } from "../utils/getStreak";
 import DailyQuote from "./DailyQuote";
+import Achievements from "./Achievements";
 import { countMoods, getMoodColor, getMoodLabel } from "@/utils/Moods";
 
 {
@@ -138,9 +139,7 @@ export default function MoodOverview({ entries }) {
         borderRadius="xl"
         boxShadow="md"
       >
-        <Text fontSize="2xl" textAlign="center" fontFamily="accent">
-          Achievements
-        </Text>
+        <Achievements entries={entries} streak={streak} />
         <Badge
           fontSize="sm"
           px={2}
