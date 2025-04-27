@@ -2,7 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Playwrite NL', serif`,
+    heading: `'Libre Baskerville', serif`,
     body: `'Quicksand', sans-serif`,
     accent: `'Birthstone', serif`,
   },
@@ -24,6 +24,13 @@ const theme = extendTheme({
     Button: {
       defaultProps: {
         colorScheme: "brand",
+      },
+    },
+    Heading: {
+      baseStyle: {
+        fontFamily: "'Libre Baskerville', sans-serif",
+        color: "brand.400",
+        fontSize: "sm",
       },
     },
   },

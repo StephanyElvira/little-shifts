@@ -6,6 +6,7 @@ import {
   HStack,
   VStack,
   Tooltip,
+  Heading,
 } from "@chakra-ui/react";
 import { achievements } from "@/data/achievements";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
@@ -13,9 +14,9 @@ import { InfoOutlineIcon } from "@chakra-ui/icons";
 export default function Achievements({ entries, streak }) {
   return (
     <Box pb={2}>
-      <Text as="heading" fontSize="xl">
+      <Heading as="h2" size="md">
         Achievements
-      </Text>
+      </Heading>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2} mt={2}>
         {achievements.map((a) => {
           const isUnlocked = a.unlocked(entries, streak);

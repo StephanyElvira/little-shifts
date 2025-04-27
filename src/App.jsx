@@ -76,7 +76,8 @@ function App() {
             styles={{
               px: "1",
               py: "0.1",
-              bg: "#E6CDA1",
+              bg: "brand.500",
+              color: "white",
               opacity: "0.5",
               rounded: "full",
             }}
